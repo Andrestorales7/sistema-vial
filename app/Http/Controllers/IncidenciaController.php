@@ -21,7 +21,7 @@ class IncidenciaController extends Controller
      */
     public function create()
     {
-        //
+        return view('incidencias.create');
     }
 
     /**
@@ -29,7 +29,16 @@ class IncidenciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Incidencia::create([
+        'titulo' => $request->titulo,
+        'descripcion' => $request->descripcion,
+        'tipo' => $request->tipo,
+        'ubicacion' => $request->ubicacion,
+        'prioridad' => $request->prioridad,
+        'estado' => 'pendiente',
+    ]);
+
+    return redirect()->route('incidencias.index');
     }
 
     /**
