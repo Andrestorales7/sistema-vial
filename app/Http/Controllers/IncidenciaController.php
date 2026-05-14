@@ -28,18 +28,28 @@ class IncidenciaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        Incidencia::create([
-        'titulo' => $request->titulo,
-        'descripcion' => $request->descripcion,
-        'tipo' => $request->tipo,
-        'ubicacion' => $request->ubicacion,
-        'prioridad' => $request->prioridad,
+{
+    $validated = $request->validate([
+        'titulo' => 'required|max:255',
+        'descripcion' => 'required',
+        'tipo' => 'required',
+        'ubicacion' => 'required|max:255',
+        'prioridad' => 'required',
+    ]);
+
+    Incidencia::create([
+        'titulo' => $validated['titulo'],
+        'descripcion' => $validated['descripcion'],
+        'tipo' => $validated['tipo'],
+        'ubicacion' => $validated['ubicacion'],
+        'prioridad' => $validated['prioridad'],
         'estado' => 'pendiente',
     ]);
 
-    return redirect()->route('incidencias.index');
-    }
+    return redirect()
+        ->route('incidencias.index')
+        ->with('success', 'Incidencia creada correctamente.');
+}
 
     /**
      * Display the specified resource.

@@ -17,6 +17,17 @@
         <h1 class="text-3xl font-bold mb-6">
             Nueva Incidencia
         </h1>
+        @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+
+        <ul class="list-disc list-inside">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+
+    </div>
+@endif
 
         <form action="{{ route('incidencias.store') }}" method="POST">
 
@@ -30,6 +41,7 @@
                 <input
                     type="text"
                     name="titulo"
+                    value="{{ old('titulo') }}"
                     class="w-full border rounded-lg p-3"
                     required
                 >
@@ -42,6 +54,7 @@
 
                 <textarea
                     name="descripcion"
+                    value="{{ old('descripcion') }}"
                     rows="4"
                     class="w-full border rounded-lg p-3"
                     required
@@ -55,6 +68,7 @@
 
                 <select
                     name="tipo"
+                    value="{{ old('tipo') }}"   
                     class="w-full border rounded-lg p-3"
                 >
                     <option value="bache">Bache</option>
@@ -72,6 +86,7 @@
                 <input
                     type="text"
                     name="ubicacion"
+                    value="{{ old('ubicacion') }}"
                     class="w-full border rounded-lg p-3"
                     required
                 >
@@ -84,6 +99,7 @@
 
                 <select
                     name="prioridad"
+                    value="{{ old('prioridad') }}"  
                     class="w-full border rounded-lg p-3"
                 >
                     <option value="baja">Baja</option>
